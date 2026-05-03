@@ -1,9 +1,108 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>Pascal & Pearls - E-commerce Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pascal and Pearls | Luxury Artificial Jewelry</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --gold: #D4AF37; --black: #0D0D0D; --white: #F9F9F9; --font-h: 'Playfair Display', serif; --font-b: 'Montserrat', sans-serif; }
+        body { margin: 0; font-family: var(--font-b); background: var(--white); color: var(--black); }
+        
+        /* Navbar */
+        nav { display: flex; justify-content: space-between; padding: 20px 5%; background: white; border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
+        .logo { font-family: var(--font-h); font-size: 22px; letter-spacing: 2px; }
+        
+        /* Sections */
+        section { padding: 40px 5%; display: none; min-height: 80vh; }
+        section.active { display: block; }
+        
+        /* Product Cards */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .card { background: white; padding: 10px; border: 1px solid #eee; text-align: center; }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; }
+        .price { color: var(--gold); font-weight: 600; margin: 10px 0; }
+        
+        /* Payment Box */
+        .upi-box { border: 2px dashed var(--gold); padding: 20px; text-align: center; margin-top: 20px; }
+        .btn { background: var(--black); color: white; padding: 12px; width: 100%; border: none; font-weight: 600; cursor: pointer; }
+        
+        footer { background: var(--black); color: white; padding: 40px 5%; font-size: 12px; line-height: 2; }
+        footer a { color: var(--gold); text-decoration: none; }
+    </style>
 </head>
 <body>
-<h1>Welcome to Pascal & Pearls!</h1>
-<p>Your one-stop destination for amazing products.</p>
+
+<nav>
+    <div onclick="showPage('shop')">Shop</div>
+    <div class="logo">PASCAL & PEARLS</div>
+    <div onclick="showPage('cart')">Cart</div>
+</nav>
+
+<section id="shop" class="active">
+    <h2 style="font-family: var(--font-h)">Collections</h2>
+    <div class="grid">
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400">
+            <h3>Opera Pearl Set</h3>
+            <p class="price">₹2,499</p>
+            <button class="btn" onclick="addToCart('Opera Pearl Set', 2499)">Add to Cart</button>
+        </div>
+        <div class="card">
+            <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400">
+            <h3>Golden Drop Earrings</h3>
+            <p class="price">₹899</p>
+            <button class="btn" onclick="addToCart('Golden Drop', 899)">Add to Cart</button>
+        </div>
+    </div>
+</section>
+
+<section id="contact">
+    <h2 style="font-family: var(--font-h)">Contact Us</h2>
+    <p>Email: antonyabilash51@gmail.com</p>
+    <p>Phone: 8073372966</p>
+    <p>IG: @apascalandpearls</p>
+</section>
+
+<section id="cart">
+    <h2>Your Cart</h2>
+    <div id="cart-list">Your cart is empty.</div>
+    <div class="upi-box">
+        <p>Payable via UPI:</p>
+        <strong style="color:#1a73e8">antonyabilash51-1@okicici</strong>
+        <p style="font-size:10px">Verify payment on WhatsApp: 8073372966</p>
+    </div>
+</section>
+
+<footer>
+    <div onclick="showPage('contact')">Shipping & Returns</div>
+    <div onclick="showPage('contact')">Care Guide</div>
+    <div onclick="showPage('contact')">Privacy Policy</div>
+    <p>© 2026 Pascal & Pearls</p>
+</footer>
+
+<script>
+    let cart = JSON.parse(localStorage.getItem('pearl_cart')) || [];
+
+    function showPage(id) {
+        document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        if(id === 'cart') renderCart();
+    }
+
+    function addToCart(name, price) {
+        cart.push({name, price});
+        localStorage.setItem('pearl_cart', JSON.stringify(cart));
+        alert("Added to cart!");
+    }
+
+    function renderCart() {
+        const list = document.getElementById('cart-list');
+        if(cart.length === 0) return;
+        let total = cart.reduce((sum, item) => sum + item.price, 0);
+        list.innerHTML = cart.map(i => `<p>${i.name} - ₹${i.price}</p>`).join('') + `<h3>Total: ₹${total}</h3>`;
+    }
+</script>
+
 </body>
-</html> 
+</html>
