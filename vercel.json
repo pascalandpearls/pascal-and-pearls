@@ -1,0 +1,1 @@
+{"version": 2, "functions": {"api/**/*.js": {"memory": 3008, "maxDuration": 10}}, "env": {"MONGODB_URI": "@mongodb-uri", "RAZORPAY_KEY_ID": "@razorpay-key-id", "RAZORPAY_SECRET": "@razorpay-secret"}, "build": {"env": {"MONGODB_URI": "@mongodb-uri", "RAZORPAY_KEY_ID": "@razorpay-key-id", "RAZORPAY_SECRET": "@razorpay-secret"}}}
